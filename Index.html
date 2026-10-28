@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Budget</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="My Budget">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0b6b4b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💰%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" id="touchIcon" href="">
+<style>
+:root{--bg:#f3f5f7;--card:#fff;--tx:#0f1720;--mut:#6b7785;--line:#e4e8ec;--acc:#0d9f6e;--accsoft:#d9f5ea;--exp:#e5484d;--field:#eef1f4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1117;--card:#151e27;--tx:#eef2f6;--mut:#8b98a6;--line:#243040;--accsoft:#10372b;--field:#1d2833;--exp:#ff6b70;--acc:#34d399}}
+:root[data-theme="dark"]{--bg:#0b1117;--card:#151e27;--tx:#eef2f6;--mut:#8b98a6;--line:#243040;--accsoft:#10372b;--field:#1d2833;--exp:#ff6b70;--acc:#34d399}
+html{color-scheme:light dark}:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}button{border:0;background:none;cursor:pointer}
+.wrap{max-width:480px;margin:0 auto;padding:12px 16px 150px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:6px 0 12px}
+.top h1{font-size:20px;margin:0;font-weight:800;letter-spacing:-.02em}
+.ib{width:40px;height:40px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:18px}
+.nav{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:12px}
+.nav b{flex:1;text-align:center;font-size:15px}.nav small{display:block;color:var(--mut);font-weight:500;font-size:11px}
+.nav button{width:40px;height:40px;border-radius:10px;font-size:18px;background:var(--field)}.nav button:disabled{opacity:.35}
+.hero{background:linear-gradient(145deg,#0b6b4b,#0d9f6e);color:#fff;border-radius:22px;padding:18px 20px;box-shadow:0 10px 30px -12px rgba(13,159,110,.55)}
+.hero.neg{background:linear-gradient(145deg,#a3262b,#e5484d);box-shadow:0 10px 30px -12px rgba(229,72,77,.6)}
+.sal{display:flex;justify-content:space-between;align-items:center;width:100%;background:rgba(255,255,255,.16);border-radius:14px;padding:10px 12px;color:#fff;text-align:left}
+.sal small{display:block;font-size:11px;opacity:.85;text-transform:uppercase;letter-spacing:.05em}.sal b{font-size:18px}.sal span{font-size:12px;opacity:.9}
+.lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;font-weight:600;margin-top:16px}
+.big{font-size:34px;font-weight:800;letter-spacing:-.02em;margin:2px 0 12px;word-break:break-word}
+.bar{height:10px;background:rgba(255,255,255,.25);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:#fff;border-radius:9px;transition:width .5s}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.row3 div{background:rgba(255,255,255,.16);border-radius:12px;padding:8px 10px}.row3 small{display:block;font-size:10px;opacity:.85;text-transform:uppercase;letter-spacing:.05em}.row3 b{font-size:13px;word-break:break-word}
+.tip{margin-top:12px;font-size:13px}
+.warn{margin-top:12px;background:#fff1f1;color:#7a1217;border:1px solid #f4b4b7;border-left:6px solid var(--exp);border-radius:16px;padding:14px 16px;font-size:14px}
+.warn b{display:block;font-size:16px;margin-bottom:4px}
+:root[data-theme="dark"] .warn{background:#2a1517;color:#ffd7d9;border-color:#6b2a2e}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .warn{background:#2a1517;color:#ffd7d9;border-color:#6b2a2e}}
+.note{margin-top:12px;background:var(--accsoft);border-radius:14px;padding:12px 14px;font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}
+.card h2{font-size:13px;margin:0 0 12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut)}
+.cat{margin-bottom:11px}.cat:last-child{margin-bottom:0}.cat .h{display:flex;justify-content:space-between;font-size:14px;margin-bottom:5px;gap:8px}.cat .t{height:8px;background:var(--field);border-radius:8px;overflow:hidden}.cat .t i{display:block;height:100%;border-radius:8px}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:6px}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:8px 13px;border-radius:20px;background:var(--field);font-size:13px;font-weight:600}.chip.on{background:var(--acc);color:#fff}
+.tx{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.tx:last-child{border-bottom:0}
+.ck{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);flex:none;font-size:14px;color:#fff;display:grid;place-items:center}.ck.on{background:var(--acc);border-color:var(--acc)}
+.tx .m{flex:1;min-width:0;text-align:left}.tx .m b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tx .m small{color:var(--mut);font-size:12px}
+.tx .a{font-weight:800;font-size:15px;white-space:nowrap;color:var(--exp)}.tx.pd .m b{opacity:.55}
+.empty{text-align:center;color:var(--mut);padding:24px 8px;font-size:14px}
+.fab{position:fixed;right:max(18px,calc(50% - 222px));bottom:calc(76px + env(safe-area-inset-bottom,0px));height:56px;padding:0 22px;border-radius:30px;background:var(--acc);color:#fff;font-weight:800;box-shadow:0 10px 24px -6px rgba(13,159,110,.6);z-index:5}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:6;padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs div{display:flex;width:100%;max-width:480px}.tabs button{flex:1;padding:11px 0 10px;font-size:12px;font-weight:700;color:var(--mut)}.tabs button span{display:block;font-size:20px}.tabs button.on{color:var(--acc)}
+.rep h3{margin:0;font-size:16px}.rep .r{display:flex;justify-content:space-between;font-size:14px;padding:3px 0}.rep .ok{color:var(--acc);font-weight:800}.rep .no{color:var(--exp);font-weight:800}
+.rep .sm{font-size:12px;color:var(--mut);margin-top:8px}
+.foot{text-align:center;margin-top:30px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:12px;letter-spacing:.02em}
+.foot b{display:block;color:var(--tx);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.shade{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20;display:none;align-items:flex-end;justify-content:center}.shade.open{display:flex}
+.sheet{background:var(--card);width:100%;max-width:480px;max-height:92vh;overflow-y:auto;border-radius:24px 24px 0 0;padding:18px 18px calc(22px + env(safe-area-inset-bottom,0px));animation:up .25s}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.sheet h3{margin:0 0 14px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
+.amt{width:100%;font-size:36px;font-weight:800;text-align:center;background:none;border:0;border-bottom:2px solid var(--line);padding:6px;outline:none}.amt:focus{border-color:var(--acc)}
+.cur{text-align:center;color:var(--mut);font-size:13px;margin:6px 0 4px}
+.fld{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--field);margin-top:10px;outline:none;font-size:16px}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.cats button{padding:9px 2px;border-radius:13px;background:var(--field);font-size:11px;font-weight:600;border:2px solid transparent}.cats button span{display:block;font-size:21px}.cats button.on{border-color:var(--acc);background:var(--accsoft)}
+.btn{width:100%;padding:15px;border-radius:14px;background:var(--acc);color:#fff;font-weight:800;font-size:16px;margin-top:14px}
+.btn.g{background:var(--field);color:var(--tx);margin-top:10px;font-weight:700}.btn.d{background:none;color:var(--exp);margin-top:6px;font-weight:700}
+.lab{font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin:16px 0 4px;display:block}
+.pdrow{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:15px}.pdrow input{width:22px;height:22px;accent-color:var(--acc)}
+textarea.fld{min-height:70px;font-size:12px;font-family:ui-monospace,Menlo,monospace}
+.how{font-size:13px;color:var(--mut);background:var(--field);border-radius:14px;padding:12px 14px;margin-top:6px}.how b{color:var(--tx)}
+.toast{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#111;color:#fff;padding:12px 16px;border-radius:14px;z-index:30;display:none;gap:14px;align-items:center;font-size:14px;max-width:92%}.toast.on{display:flex}.toast button{color:#6ee7b7;font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><h1>💰 My Budget</h1><button class="ib" onclick="openMenu()" aria-label="Settings">⚙️</button></div>
+  <div id="planV">
+    <div class="nav"><button id="prev" onclick="go(-1)" aria-label="Previous month">‹</button><b id="ctitle"></b><button id="next" onclick="go(1)" aria-label="Next month">›</button></div>
+    <div id="memwarn"></div><div id="hero"></div><div id="warn"></div>
+    <div class="card" id="catCard"></div>
+    <div class="card"><h2>Booked expenses</h2><div class="chips" id="chips"></div><div id="list"></div></div>
+  </div>
+  <div id="repV" style="display:none"></div>
+  <footer class="foot"><b>Designed by Joshua the plug</b>© 2026 · Personal Budget Planner</footer>
+</div>
+<button class="fab" id="fab" onclick="openAdd()">＋ Book expense</button>
+<div class="tabs"><div><button id="tPlan" class="on" onclick="setV('plan')"><span>📅</span>Plan</button><button id="tRep" onclick="setV('rep')"><span>📊</span>Reports</button></div></div>
+<div class="shade" id="addShade" onclick="if(event.target===this)closeAll()"><div class="sheet" id="addSheet"></div></div>
+<div class="shade" id="menuShade" onclick="if(event.target===this)closeAll()"><div class="sheet" id="menuSheet"></div></div>
+<div class="toast" id="toast"><span id="tmsg"></span><button id="tundo">Undo</button></div>
+
+<script>
+const SRC='<!DOCTYPE html>\n'+document.documentElement.outerHTML; // clean copy of the app, used for "Send app file"
+const KEY='budget_planner_joshua_v4';
+const EXP=[['Housing','🏠','Rent','#6366f1'],['Food','🍲','Food','#f59e0b'],['Transport','🚕','Transport','#0ea5e9'],['Utilities','💡','Bills','#eab308'],['Family','💸','Family','#ec4899'],['Savings','🏦','Savings','#10b981'],['Personal','👕','Personal','#a855f7'],['Other','📦','Other','#94a3b8']];
+const CUR=['UGX','USD','EUR','GBP','KES','RWF','TZS','AED','SAR','QAR','ZAR','NGN','GHS','INR'];
+let S={currency:'UGX',theme:'auto',periods:{},tx:[]},off=0,F='all',view='plan',edit=null,cat='Food',tt,mem=false,undoFn=null;
+try{const s=localStorage.getItem(KEY);if(s)S=Object.assign(S,JSON.parse(s));localStorage.setItem('t','1');localStorage.removeItem('t')}catch(e){mem=true}
+const $=id=>document.getElementById(id);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));mem=false}catch(e){mem=true}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const dec=()=>['UGX','RWF','KES','TZS','NGN'].includes(S.currency)?0:2;
+const fmt=n=>new Intl.NumberFormat(undefined,{maximumFractionDigits:dec()}).format(n);
+const money=n=>S.currency+' '+fmt(n);
+const info=id=>EXP.find(c=>c[0]===id)||EXP[7];
+const keyAt=o=>{const t=new Date();return iso(new Date(t.getFullYear(),t.getMonth()+o,1)).slice(0,7)};
+const mTitle=k=>new Date(k+'-01T00:00:00').toLocaleString(undefined,{month:'long',year:'numeric'});
+const defPay=k=>{const[y,m]=k.split('-').map(Number);return iso(new Date(y,m,0))};
+const getP=k=>S.periods[k]||{salary:0,payDate:defPay(k)};
+const dShort=d=>new Date(d+'T00:00:00').toLocaleDateString(undefined,{day:'numeric',month:'short'});
+const daysTo=d=>{const t=new Date();t.setHours(0,0,0,0);return Math.round((new Date(d+'T00:00:00')-t)/864e5)};
+function stats(k){const p=getP(k),l=S.tx.filter(x=>x.p===k),b=l.reduce((a,x)=>a+x.amount,0),pd=l.filter(x=>x.paid).reduce((a,x)=>a+x.amount,0);
+ const by={};l.forEach(x=>by[x.cat]=(by[x.cat]||0)+x.amount);return{p,l,b,pd,left:p.salary-b,by}}
+
+function render(){
+ document.documentElement.dataset.theme=S.theme==='auto'?'':S.theme;
+ const k=keyAt(off),st=stats(k),{p,l,b,pd,left}=st;
+ $('ctitle').innerHTML=mTitle(k)+'<small>'+(off===0?'This month':off<0?'Past month':'Upcoming month')+'</small>';
+ $('prev').disabled=off<=-36;$('next').disabled=off>=12;
+ $('memwarn').innerHTML=mem?'<div class="warn" style="margin:0 0 12px"><b>Data cannot be saved here</b>This browser is blocking storage. Open the app in Safari or Chrome (not inside another app) so your entries are kept.</div>':'';
+ const pct=p.salary>0?Math.min(100,Math.round(b/p.salary*100)):(b>0?100:0),d=daysTo(p.payDate);
+ let tip;
+ if(p.salary<=0)tip='👆 Start here: tap the salary box and enter the salary you expect this month.';
+ else if(left<0)tip='Over by '+money(-left)+' — see the warning below.';
+ else tip=(d>0?'Salary lands in <b>'+d+' day'+(d>1?'s':'')+'</b> ('+dShort(p.payDate)+').':d===0?'Salary is due <b>today</b>.':'Salary date ('+dShort(p.payDate)+') has passed.')+' You will have <b>'+money(left)+'</b> left once it arrives.';
+ $('hero').innerHTML='<div class="hero'+(left<0&&p.salary>0?' neg':'')+'"><button class="sal" onclick="openSalary()"><div><small>Expected salary · lands '+dShort(p.payDate)+'</small><b>'+money(p.salary)+'</b></div><span>✏️ Edit</span></button><div class="lbl">'+(left<0?'Overspent (booked beyond salary)':'Left after booked expenses')+'</div><div class="big">'+(left<0?'−':'')+money(Math.abs(left))+'</div><div class="bar"><i style="width:'+pct+'%"></i></div><div style="font-size:12px;margin-top:6px;opacity:.9">'+pct+'% of expected salary already booked</div><div class="row3"><div><small>Booked</small><b>'+money(b)+'</b></div><div><small>Paid</small><b>'+money(pd)+'</b></div><div><small>Still to pay</small><b>'+money(b-pd)+'</b></div></div><div class="tip">'+tip+'</div></div>';
+ if(left<0&&p.salary>0){const n=daysTo(getP(keyAt(off+1)).payDate);
+  $('warn').innerHTML='<div class="warn"><b>⚠️ You are living in the future!</b>You have booked '+money(-left)+' more than this month’s expected salary.'+(n>0?' Your next income after this one comes in <b>'+n+' days</b> ('+dShort(getP(keyAt(off+1)).payDate)+'). Reduce or move some expenses.':' This month closed over budget.')+'</div>'}
+ else $('warn').innerHTML=p.salary>0&&b===0?'<div class="note">Now book the expenses you plan to make this month. Each one is deducted from your expected salary straight away.</div>':'';
+ const rows=Object.entries(st.by).sort((a,b)=>b[1]-a[1]);
+ $('catCard').style.display=rows.length?'':'none';
+ $('catCard').innerHTML='<h2>Where your salary is going</h2>'+rows.map(([c,v])=>{const i=info(c);return'<div class="cat"><div class="h"><span>'+i[1]+' '+i[2]+'</span><b>'+money(v)+' <span style="color:var(--mut);font-weight:500">· '+Math.round(v/b*100)+'%</span></b></div><div class="t"><i style="width:'+(v/b*100)+'%;background:'+i[3]+'"></i></div></div>'}).join('');
+ $('chips').innerHTML=[['all','All'],['todo','To pay'],['paid','Paid']].map(([c,t])=>'<button class="chip'+(F===c?' on':'')+'" onclick="F=\''+c+'\';render()">'+t+'</button>').join('');
+ let sh=l.filter(x=>F==='all'||(F==='paid')===!!x.paid).sort((a,b)=>(a.date||'').localeCompare(b.date||'')||a.id-b.id);
+ $('list').innerHTML=sh.length?sh.map(x=>{const i=info(x.cat);return'<div class="tx'+(x.paid?' pd':'')+'"><button class="ck'+(x.paid?' on':'')+'" onclick="togglePaid('+x.id+')" aria-label="Mark paid">'+(x.paid?'✓':'')+'</button><button class="m" onclick="openAdd('+x.id+')"><b>'+i[1]+' '+esc(x.title)+'</b><small>'+i[2]+(x.date?' · due '+dShort(x.date):'')+(x.paid?' · paid':'')+'</small></button><div class="a">−'+fmt(x.amount)+'</div></div>'}).join(''):'<div class="empty">'+(l.length?'Nothing in this filter.':'No expenses booked for '+mTitle(k)+' yet.<br>Tap <b>＋ Book expense</b>.')+'</div>';
+ if(view==='rep')renderRep();
+}
+function renderRep(){
+ const ks=[...new Set(Object.keys(S.periods).concat(S.tx.map(x=>x.p)))].sort().reverse();
+ $('repV').innerHTML='<div class="note" style="margin-top:0">Every month is saved automatically. This is your history — tap <b>Share</b> to send a month’s report.</div>'+(ks.length?ks.map(k=>{const s=stats(k),top=Object.entries(s.by).sort((a,b)=>b[1]-a[1]).slice(0,4),sv=s.by.Savings||0;
+  return'<div class="card rep"><h3>'+mTitle(k)+'</h3><div style="margin-top:8px"><div class="r"><span>Expected salary</span><b>'+money(s.p.salary)+'</b></div><div class="r"><span>Booked expenses</span><b>'+money(s.b)+'</b></div><div class="r"><span>'+(s.left<0?'Overspent':'Left over')+'</span><span class="'+(s.left<0?'no':'ok')+'">'+(s.left<0?'−':'')+money(Math.abs(s.left))+'</span></div>'+(sv?'<div class="r"><span>🏦 Saved</span><b>'+money(sv)+'</b></div>':'')+'</div>'+(top.length?'<div class="sm">Top: '+top.map(([c,v])=>info(c)[1]+' '+info(c)[2]+' '+fmt(v)).join(' · ')+'</div>':'')+'<button class="btn g" onclick="shareRep(\''+k+'\')">Share report</button><button class="btn d" style="margin-top:2px" onclick="off=monthOff(\''+k+'\');setV(\'plan\')">Open this month</button></div>'}).join(''):'<div class="empty">No months saved yet. Set an expected salary on the Plan tab to begin.</div>');
+}
+const monthOff=k=>{const t=new Date(),[y,m]=k.split('-').map(Number);return (y-t.getFullYear())*12+(m-1-t.getMonth())};
+function shareRep(k){const s=stats(k),t=['💰 '+mTitle(k)+' — My Budget','Expected salary: '+money(s.p.salary),'Booked expenses: '+money(s.b),(s.left<0?'Overspent: ':'Left over: ')+money(Math.abs(s.left)),''].concat(Object.entries(s.by).sort((a,b)=>b[1]-a[1]).map(([c,v])=>info(c)[1]+' '+info(c)[2]+': '+money(v))).join('\n');
+ if(navigator.share)navigator.share({text:t}).catch(()=>{});else copy(t,'Report copied')}
+function setV(v){view=v;$('planV').style.display=v==='plan'?'':'none';$('repV').style.display=v==='rep'?'':'none';$('fab').style.display=v==='plan'?'':'none';$('tPlan').className=v==='plan'?'on':'';$('tRep').className=v==='rep'?'on':'';render();scrollTo(0,0)}
+const go=d=>{off=Math.max(-36,Math.min(12,off+d));render()};
+
+function openSalary(){const k=keyAt(off),p=getP(k);
+ $('addSheet').innerHTML='<h3>Expected salary · '+mTitle(k)+' <button class="ib" onclick="closeAll()" style="width:34px;height:34px;font-size:15px">✕</button></h3><div class="how" style="margin:0 0 12px">Enter the salary you expect to receive this month, even if it only arrives at month end. Every expense you book is deducted from it.</div><input class="amt" id="sa" type="number" inputmode="decimal" step="any" placeholder="0" value="'+(p.salary||'')+'"><div class="cur">'+S.currency+'</div><label class="lab">Day the salary will land</label><input class="fld" style="margin-top:0" id="sd" type="date" value="'+p.payDate+'"><button class="btn" onclick="saveSalary()">Save salary</button>';
+ $('addShade').classList.add('open');setTimeout(()=>$('sa').focus(),250)}
+function saveSalary(){const k=keyAt(off),a=parseFloat($('sa').value);S.periods[k]={salary:a>0?a:0,payDate:$('sd').value||defPay(k)};save();closeAll();render()}
+
+function openAdd(id){
+ edit=id?S.tx.find(x=>x.id===id):null;cat=edit?edit.cat:'Food';
+ $('addSheet').innerHTML='<h3>'+(edit?'Edit expense':'Book an expense')+' <button class="ib" onclick="closeAll()" style="width:34px;height:34px;font-size:15px">✕</button></h3><input class="amt" id="fa" type="number" inputmode="decimal" step="any" placeholder="0" value="'+(edit?edit.amount:'')+'"><div class="cur">'+S.currency+' · booked against '+mTitle(edit?edit.p:keyAt(off))+' salary</div><div class="cats" id="fc"></div><input class="fld" id="ft" placeholder="What is it for? (optional)" maxlength="60" value="'+(edit?esc(edit.title):'')+'"><label class="lab">Due / spend date (optional)</label><input class="fld" style="margin-top:0" id="fd" type="date" value="'+(edit&&edit.date||'')+'"><label class="pdrow"><input type="checkbox" id="fp"'+(edit&&edit.paid?' checked':'')+'> Already paid</label><button class="btn" onclick="saveTx()">'+(edit?'Save changes':'Book it')+'</button>'+(edit?'<button class="btn g" onclick="copyNext()">Repeat next month</button><button class="btn d" onclick="delTx()">Delete</button>':'');
+ drawCats();$('addShade').classList.add('open');if(!edit)setTimeout(()=>$('fa').focus(),250)}
+function drawCats(){$('fc').innerHTML=EXP.map(c=>'<button class="'+(cat===c[0]?'on':'')+'" onclick="cat=\''+c[0]+'\';drawCats()"><span>'+c[1]+'</span>'+c[2]+'</button>').join('')}
+function saveTx(){const a=parseFloat($('fa').value);if(!(a>0)){$('fa').focus();$('fa').style.borderColor='var(--exp)';return}
+ const o={amount:a,cat,title:$('ft').value.trim()||info(cat)[2],date:$('fd').value,paid:$('fp').checked};
+ if(edit)Object.assign(edit,o);else S.tx.push(Object.assign({id:Date.now(),p:keyAt(off)},o));
+ save();closeAll();render()}
+function togglePaid(id){const x=S.tx.find(t=>t.id===id);x.paid=!x.paid;save();render()}
+function delTx(){const i=S.tx.indexOf(edit),x=edit;S.tx.splice(i,1);save();closeAll();render();toast('Expense deleted',()=>{S.tx.splice(i,0,x);save();render()})}
+function copyNext(){const[y,m]=edit.p.split('-').map(Number),nk=iso(new Date(y,m,1)).slice(0,7);S.tx.push({id:Date.now(),p:nk,amount:edit.amount,cat:edit.cat,title:edit.title,date:'',paid:false});save();closeAll();render();toast('Copied to '+mTitle(nk),()=>{})}
+function toast(m,fn){$('tmsg').textContent=m;$('tundo').style.display=fn.length||fn.toString().length>8?'':'none';$('tundo').onclick=()=>{fn();$('toast').classList.remove('on')};$('toast').classList.add('on');clearTimeout(tt);tt=setTimeout(()=>$('toast').classList.remove('on'),5000)}
+const closeAll=()=>document.querySelectorAll('.shade').forEach(s=>s.classList.remove('open'));
+
+function openMenu(){
+ $('menuSheet').innerHTML='<h3>Settings <button class="ib" onclick="closeAll()" style="width:34px;height:34px;font-size:15px">✕</button></h3>'+
+ '<label class="lab" style="margin-top:0">Currency</label><select class="fld" style="margin-top:0" onchange="S.currency=this.value;save();render()">'+CUR.map(c=>'<option'+(c===S.currency?' selected':'')+'>'+c+'</option>').join('')+'</select>'+
+ '<label class="lab">Appearance</label><select class="fld" style="margin-top:0" onchange="S.theme=this.value;save();render()">'+[['auto','Match my phone'],['light','Light'],['dark','Dark']].map(t=>'<option value="'+t[0]+'"'+(S.theme===t[0]?' selected':'')+'>'+t[1]+'</option>').join('')+'</select>'+
+ '<label class="lab">Share this app with friends</label><button class="btn g" style="margin-top:0" onclick="shareApp()">📤 Send app file (WhatsApp, etc.)</button><div class="how">Friends open the file in Safari/Chrome. They get their own empty copy — your data is never included.</div>'+
+ '<label class="lab">Backup &amp; restore</label><button class="btn g" style="margin-top:0" onclick="backup()">💾 Save backup file</button><button class="btn g" onclick="copy(JSON.stringify(S),\'Backup copied\')">📋 Copy backup text</button><button class="btn g" onclick="csv()">📊 Copy as spreadsheet (CSV)</button><input type="file" id="rf" accept=".json,application/json" style="display:none" onchange="restoreFile(this)"><button class="btn g" onclick="$(\'rf\').click()">♻️ Restore from backup file</button><textarea class="fld" id="rb" placeholder="…or paste backup text here, then tap Restore"></textarea><button class="btn g" onclick="restore($(\'rb\').value)">Restore pasted text</button>'+
+ '<label class="lab">Keep it on your phone</label><div class="how"><b>iPhone:</b> open in Safari → Share ⬆️ → <b>Add to Home Screen</b>.<br><b>Android:</b> open in Chrome → ⋮ → <b>Add to Home screen</b> / <b>Install app</b>.<br>Use ONE way of opening the app (the icon on iPhone has separate storage), and back up now and then.</div>'+
+ '<button class="btn d" onclick="wipe()">Erase all data</button>';
+ $('menuShade').classList.add('open')}
+async function copy(t,msg){try{await navigator.clipboard.writeText(t);toast(msg,()=>{})}catch(e){const ta=$('rb');if(ta){ta.value=t;ta.select()}toast('Select the text and copy it',()=>{})}}
+function dl(text,name,type){const u=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast('Saved '+name,()=>{})}
+function backup(){dl(JSON.stringify(S),'My_Budget_backup_'+iso(new Date())+'.json','application/json')}
+async function shareApp(){const f=new File([SRC],'My_Budget.html',{type:'text/html'});try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'My Budget',text:'My Budget planner — open this file in Safari or Chrome.'});return}}catch(e){if(e.name==='AbortError')return}dl(SRC,'My_Budget.html','text/html')}
+function csv(){const r=['Month,Category,Title,Amount ('+S.currency+'),Paid'].concat(S.tx.slice().sort((a,b)=>a.p.localeCompare(b.p)).map(x=>[x.p,info(x.cat)[2],'"'+x.title.replace(/"/g,'""')+'"',x.amount,x.paid?'yes':'no'].join(',')));copy(r.join('\n'),'CSV copied — paste into any spreadsheet')}
+function restoreFile(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>restore(r.result);r.readAsText(f)}
+function restore(t){try{const d=JSON.parse(t);if(!Array.isArray(d.tx))throw 0;if(!confirm('Replace current data with this backup?'))return;S=Object.assign({currency:'UGX',theme:'auto',periods:{},tx:[]},d);save();off=0;closeAll();render();toast('Backup restored',()=>{})}catch(e){alert('That does not look like a valid backup.')}}
+function wipe(){if(confirm('Erase ALL data? This cannot be undone.')){S={currency:S.currency,theme:'auto',periods:{},tx:[]};save();off=0;closeAll();render()}}
+
+(function(){try{const c=document.createElement('canvas');c.width=c.height=180;const x=c.getContext('2d');x.fillStyle='#0d9f6e';x.fillRect(0,0,180,180);x.font='110px serif';x.textAlign='center';x.textBaseline='middle';x.fillText('💰',90,98);$('touchIcon').href=c.toDataURL('image/png')}catch(e){}})();
+render();
+</script>
+</body>
+</html>
